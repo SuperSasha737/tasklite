@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import type { Task } from "../entities/task";
-import { useState } from "react";
 
 type TaskItemProps = {
   task: Task;
@@ -30,19 +29,11 @@ const DateText = styled.span`
 `;
 
 export function TaskItem(props: TaskItemProps) { 
-  const [draft, setDraft] = useState('');
-  const [isEditing, setIsEditing] = useState('');
-  // 
 
-  function handleSave() {
-    props.onEdit(props.task.id, draft)
-  }
-  
   return <Item> 
       <div>
         <h3>{props.task.title}</h3> 
-       
-        {isEditing &&(<input type="text" onChange={e => setDraft(e.target.value)} onBlur={() => handleSave}/>)}
+
        
         <DateText>
           {props.task.created.toLocaleString('ru-RU', {

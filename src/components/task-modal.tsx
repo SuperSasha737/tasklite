@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
 import { normalizeTitle } from "../utils/utils";
+import type { Task } from "../entities/task";
 
-export default function TaskModal(props) {
+type TaskModalProps = {
+    onClose: () => void;
+    onSave: (id: string, title: string) => void;
+    task: Task;
+};
+
+export default function TaskModal(props: TaskModalProps) {
     const [title, setTitle] = useState('');
     const[description, setDescription] = useState('');
-
+    
     useEffect(()=>{
         const handler = (e: KeyboardEvent) => {
             if(e.code === 'Escape') props.onClose();
@@ -12,7 +19,7 @@ export default function TaskModal(props) {
         window.addEventListener('keydown', handler);
         return () => window.removeEventListener('keydown', handler)
     }, [props]);
-    
+    console.log(props)
 
     return (
         <div>
