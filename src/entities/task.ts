@@ -3,8 +3,8 @@
 export type Task = {
     readonly id: string;     // уникальный идентификатор
     title: string;           // текст задачи
-    description: string;
-    completed: boolean;      // статус выполнения
+    description?: string;
+    complete: boolean;      // статус выполнения
     created: Date;         // дата создания
     deadline?: Date | null;
 };
@@ -21,8 +21,9 @@ export function makeTask(title: string): Task {
     return {
         id: getRandomId(), // простая генерация id
         title: title.trim(),
-        description: 'ok',
-        completed: false,
-        created: new Date()
+        description: "",
+        complete: false,
+        created: new Date(),
+        deadline: null,
     };
 }

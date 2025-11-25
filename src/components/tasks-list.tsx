@@ -5,6 +5,7 @@ type TaskListProps = {
     tasks: Task[];
     onRemove: (id: string) => void;
     onEdit: (task: Task) => void;
+    onToggle: (id: string) => void;
 };
 
 export function TasksList(props: TaskListProps) {
@@ -15,6 +16,7 @@ export function TasksList(props: TaskListProps) {
             task={task} 
             onEdit={props.onEdit} 
             onRemove={props.onRemove}
+            onToggle={props.onToggle}
             />
         );
     });

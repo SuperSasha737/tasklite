@@ -7,13 +7,18 @@ export function saveTasksToLocStorage(tasks: Task[]) {
 };
 
 export function getTasksFromLocStorage(): Task[]{
+    try{
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
-    
     const parsed = JSON.parse(raw);
+
     return parsed.map((t: any) => ({
         ...t,
         created: new Date(t.created),
+        deadline: t.deadline ? new Date(t.deadline) : null,
     })
     );
+    } catch {
+        return [];
+    }
 };
