@@ -9,7 +9,7 @@ type TaskListProps = {
 };
 
 export function TasksList(props: TaskListProps) {
-    const result = props.tasks.map(task => {
+    const result = props.tasks.map((task, index) => {
         return (
         <TaskItem 
             key={task.id} 
@@ -17,6 +17,7 @@ export function TasksList(props: TaskListProps) {
             onEdit={props.onEdit} 
             onRemove={props.onRemove}
             onToggle={props.onToggle}
+            isFirst={index === 0}
             />
         );
     });

@@ -67,16 +67,6 @@ export default function TaskModal(props: TaskModalProps) {
     const [title, setTitle] = useState('');
     const[description, setDescription] = useState(props.task.description ?? "");
     const [deadline, setDeadline] = useState<string>(props.task.deadline ? props.task.deadline.toISOString().split("T")[0] : "");
-
-    <label>
-        Дедлайн:
-        <input
-            type="date"
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value)}
-        />
-    </label>
-
     
     useEffect(()=>{
         const handler = (e: KeyboardEvent) => {
@@ -101,6 +91,14 @@ export default function TaskModal(props: TaskModalProps) {
                     value={description} 
                     onChange={e => setDescription(e.target.value)} 
                 />
+                 <label>
+                    Дедлайн:
+                    <input
+                        type="date"
+                        value={deadline}
+                        onChange={(e) => setDeadline(e.target.value)}
+                    />
+                </label>
                 <Actions>
                     <Button onClick={ () => props.onClose()}>Отмена</Button>
                     <Button 

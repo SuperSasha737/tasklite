@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import {TasksList} from "../components/tasks-list";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import s from "@emotion/styled";
 import { makeTask, type Task } from "../entities/task";
 import { Button } from "../components/button";
@@ -74,15 +74,30 @@ export const TasksPage = () => {
     );
   };
 
-  const filteredTasks = tasks.filter(function (task) {
-    if (filter === 'completed') return task.complete; //только невыполненные
-    if (filter === 'active') return !task.complete; //только завершённые
-    return true; //"all" — без фильтра
-  });
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((task) => {
+      if (filter === "active") return !task.complete;
+      if (filter === "completed") return task.complete;
+      return true;
+    });
+  }, [tasks, filter]);
+  
+  // Оптимизация
+  // tasks.filter(function (task) {
+  //   if (filter === 'completed') return task.complete; //только невыполненные
+  //   if (filter === 'active') return !task.complete; //только завершённые
+  //   return true; //"all" — без фильтра
+  // });
 
-  const searchedTasks = filteredTasks.filter(task => {
-    return task.title.includes(query);
-  });
+  const searchedTasks = useMemo(() => {
+    return filteredTasks.filter((task) =>
+      task.title.toLowerCase().includes(query.toLowerCase().trim())
+    );
+  }, [filteredTasks, query]);
+  
+  // filteredTasks.filter(task => {
+  //   return task.title.toLowerCase().includes(query.toLowerCase().trim());
+  // });
 
   const total = tasks.length;
   let completedTasks = tasks.filter(t => t.complete).length;
